@@ -3,109 +3,477 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4Kopen - STMicroelectronics</title>
+
+    <title>4Kopen WikiDev | STMicroelectronics</title>
+
     <style>
+        :root {
+            --stm-blue: #0065a8;
+            --stm-dark: #003b64;
+            --stm-light: #eaf5fc;
+            --board-green: #176b45;
+            --text: #202b36;
+            --muted: #667788;
+            --border: #d5e0e8;
+            --background: #f4f7fa;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f2f5f9;
-            color: #202b3c;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--background);
+            line-height: 1.65;
         }
 
         header {
-            background: #00529b;
+            background: var(--stm-dark);
             color: white;
-            text-align: center;
-            padding: 35px 20px;
+            border-bottom: 4px solid var(--stm-blue);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 38px;
+        .topbar {
+            max-width: 1150px;
+            margin: auto;
+            padding: 15px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
         }
 
-        header p {
-            font-size: 18px;
+        .brand {
+            font-size: 19px;
+            font-weight: bold;
+            letter-spacing: .4px;
         }
 
-        main {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 25px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px #00000012;
+        .brand span {
+            color: #70c8ff;
         }
 
-        h2 {
-            color: #00529b;
+        .languages {
+            display: flex;
+            gap: 8px;
         }
 
-        .highlight {
-            background: #e5f2ff;
-            padding: 15px;
-            border-left: 5px solid #0084d6;
+        .languages a {
+            text-decoration: none;
+            color: white;
+            padding: 7px 14px;
+            border: 1px solid #779bb5;
             border-radius: 5px;
+            font-size: 13px;
+            font-weight: bold;
         }
 
-        ul {
-            line-height: 1.9;
+        .languages a.active,
+        .languages a:hover {
+            background: var(--stm-blue);
+            border-color: #70c8ff;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #003b64, #087bb9);
+            color: white;
+            padding: 45px 24px;
+        }
+
+        .hero-inner {
+            max-width: 1100px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .eyebrow {
+            color: #a8ddff;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 5vw, 54px);
+            line-height: 1.1;
+            margin: 12px 0;
+        }
+
+        .hero p {
+            color: #e1f2ff;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            background: white;
+            border: 4px solid #c6e7f8;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px #001e353b;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            display: block;
+            margin: auto;
+        }
+
+        .image-caption {
+            color: #536779;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .layout {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 220px minmax(0, 1fr);
+            gap: 25px;
+            align-items: start;
+        }
+
+        aside, article, .info-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+        }
+
+        aside {
+            padding: 18px;
+            position: sticky;
+            top: 20px;
+        }
+
+        aside h3 {
+            margin-top: 0;
+            font-size: 15px;
+            color: var(--stm-dark);
+        }
+
+        aside a {
+            display: block;
+            text-decoration: none;
+            color: var(--stm-blue);
+            padding: 7px 0;
+            font-size: 14px;
+        }
+
+        aside a:hover {
+            text-decoration: underline;
+        }
+
+        article {
+            padding: 28px;
+            min-width: 0;
+        }
+
+        article h2 {
+            font-size: 23px;
+            color: var(--stm-dark);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            margin-top: 8px;
+        }
+
+        .notice {
+            background: var(--stm-light);
+            border-left: 4px solid var(--stm-blue);
+            padding: 15px 18px;
+            border-radius: 3px;
+            margin: 18px 0;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 18px 0;
+        }
+
+        .tag {
+            background: #e5f4ed;
+            color: var(--board-green);
+            border: 1px solid #c3e3d2;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .specs {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0 25px;
+            font-size: 14px;
+        }
+
+        .specs th, .specs td {
+            text-align: left;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+        }
+
+        .specs th {
+            background: #edf4f8;
+            width: 35%;
+        }
+
+        .specs tr:nth-child(even) td {
+            background: #fafcfd;
         }
 
         footer {
+            background: #e8eef3;
+            border-top: 1px solid var(--border);
             text-align: center;
-            padding: 20px;
-            color: #667085;
-            font-size: 14px;
+            color: var(--muted);
+            padding: 24px;
+            font-size: 12px;
+        }
+
+        @media (max-width: 720px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                max-width: 500px;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+            }
+
+            article {
+                padding: 18px;
+            }
+
+            .topbar {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <header>
-        <h1>4Kopen</h1>
-        <p>An Open 4K UHD Video Development Platform</p>
-        <p>STMicroelectronics | 2019</p>
-    </header>
+<header>
+    <div class="topbar">
+        <div class="brand">Wiki<span>Dev</span> / 4Kopen</div>
 
-    <main>
-        <section>
-            <h2>What is 4Kopen?</h2>
-            <p>
-                4Kopen is an open-source hardware development platform
-                designed for Ultra HD video applications. In 2019,
-                it featured STMicroelectronics' STiH418 multimedia processor.
+        <nav class="languages" aria-label="Language">
+            <a id="fr-link" href="/fr/home.html">FR</a>
+            <a id="en-link" href="/en/home.html">EN</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-inner">
+        <div>
+            <div class="eyebrow" data-i18n="eyebrow">
+                Hardware documentation
+            </div>
+
+            <h1>4Kopen</h1>
+
+            <p data-i18n="subtitle">
+                An overview of STMicroelectronics' 4Kopen platform,
+                presented in 2019.
+            </p>
+
+            <div class="tags">
+                <span class="tag">STMicroelectronics</span>
+                <span class="tag">4K UHD</span>
+                <span class="tag">2019</span>
+                <span class="tag">Hardware</span>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <img src="/img/4kopen.png"
+                 alt="STMicroelectronics 4Kopen development board">
+
+            <div class="image-caption" data-i18n="caption">
+                4Kopen development board
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="layout">
+
+    <aside>
+        <h3 data-i18n="contents">Contents</h3>
+        <a href="#overview" data-i18n="nav1">1. Overview</a>
+        <a href="#hardware" data-i18n="nav2">2. Hardware</a>
+        <a href="#purpose" data-i18n="nav3">3. Applications</a>
+        <a href="#references" data-i18n="nav4">4. References</a>
+    </aside>
+
+    <article>
+        <section id="overview">
+            <h2 data-i18n="overviewTitle">Overview</h2>
+
+            <p data-i18n="overviewText">
+                4Kopen is a hardware platform associated with
+                STMicroelectronics, intended for the development
+                and evaluation of 4K Ultra HD multimedia applications.
+                It was featured in the company's 2019 multimedia ecosystem.
+            </p>
+
+            <div class="notice">
+                <strong data-i18n="noteTitle">Wiki note</strong>
+                <span data-i18n="noteText">
+                    This page is a brief introduction. Consult the
+                    official documentation to verify exact board
+                    specifications and software compatibility.
+                </span>
+            </div>
+        </section>
+
+        <section id="hardware">
+            <h2 data-i18n="hardwareTitle">Hardware overview</h2>
+
+            <table class="specs">
+                <tr>
+                    <th data-i18n="field1">Manufacturer</th>
+                    <td>STMicroelectronics</td>
+                </tr>
+                <tr>
+                    <th data-i18n="field2">Platform</th>
+                    <td>4Kopen</td>
+                </tr>
+                <tr>
+                    <th data-i18n="field3">Period</th>
+                    <td>2019</td>
+                </tr>
+                <tr>
+                    <th data-i18n="field4">Main focus</th>
+                    <td data-i18n="value4">4K UHD multimedia development</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="purpose">
+            <h2 data-i18n="purposeTitle">Applications</h2>
+
+            <p data-i18n="purposeText">
+                The platform is relevant to multimedia development,
+                video processing experiments and the evaluation of
+                embedded hardware and software solutions.
             </p>
         </section>
 
-        <section>
-            <h2>Key Features</h2>
+        <section id="references">
+            <h2 data-i18n="referencesTitle">References</h2>
+
             <ul>
-                <li><strong>Processor:</strong> Quad-core ARM Cortex-A9,
-                    up to 1.2 GHz</li>
-                <li><strong>Video output:</strong> HDMI 2.0, up to 4K at 60 fps</li>
-                <li><strong>Memory:</strong> 2 GB DDR3 RAM</li>
-                <li><strong>Connectivity:</strong> Gigabit Ethernet,
-                    Wi-Fi and USB 3.0</li>
-                <li><strong>Software:</strong> Linux-based development
-                    environments and GStreamer support</li>
+                <li>
+                    <a href="https://www.st.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        STMicroelectronics — Official website
+                    </a>
+                </li>
             </ul>
         </section>
+    </article>
+</div>
 
-        <section class="highlight">
-            <h2>Why is it interesting?</h2>
-            <p>
-                4Kopen provides developers with a flexible platform
-                for testing and building high-quality video applications.
-                Its open hardware design and connectivity options make
-                it useful for multimedia experimentation.
-            </p>
-        </section>
-    </main>
+<footer>
+    WikiDev · 4Kopen · <span data-i18n="footer">Technical overview</span>
+</footer>
 
-    <footer>
-        © 2019 | 4Kopen & STMicroelectronics
-    </footer>
+<script>
+    const translations = {
+        en: {
+            eyebrow: "Hardware documentation",
+            subtitle: "An overview of STMicroelectronics' 4Kopen platform, presented in 2019.",
+            caption: "4Kopen development board",
+            contents: "Contents",
+            nav1: "1. Overview",
+            nav2: "2. Hardware",
+            nav3: "3. Applications",
+            nav4: "4. References",
+            overviewTitle: "Overview",
+            overviewText: "4Kopen is a hardware platform associated with STMicroelectronics, intended for the development and evaluation of 4K Ultra HD multimedia applications. It was featured in the company's 2019 multimedia ecosystem.",
+            noteTitle: "Wiki note",
+            noteText: "This page is a brief introduction. Consult the official documentation to verify exact board specifications and software compatibility.",
+            hardwareTitle: "Hardware overview",
+            field1: "Manufacturer",
+            field2: "Platform",
+            field3: "Period",
+            field4: "Main focus",
+            value4: "4K UHD multimedia development",
+            purposeTitle: "Applications",
+            purposeText: "The platform is relevant to multimedia development, video processing experiments and the evaluation of embedded hardware and software solutions.",
+            referencesTitle: "References",
+            footer: "Technical overview"
+        },
+
+        fr: {
+            eyebrow: "Documentation matérielle",
+            subtitle: "Présentation de la plateforme 4Kopen de STMicroelectronics, présentée en 2019.",
+            caption: "Carte de développement 4Kopen",
+            contents: "Sommaire",
+            nav1: "1. Présentation",
+            nav2: "2. Matériel",
+            nav3: "3. Applications",
+            nav4: "4. Références",
+            overviewTitle: "Présentation",
+            overviewText: "4Kopen est une plateforme matérielle associée à STMicroelectronics, destinée au développement et à l'évaluation d'applications multimédias Ultra HD 4K. Elle faisait partie de l'écosystème multimédia de l'entreprise en 2019.",
+            noteTitle: "Note Wiki",
+            noteText: "Cette page est une brève introduction. Consultez la documentation officielle pour vérifier les caractéristiques exactes de la carte et la compatibilité logicielle.",
+            hardwareTitle: "Présentation matérielle",
+            field1: "Fabricant",
+            field2: "Plateforme",
+            field3: "Année",
+            field4: "Objectif principal",
+            value4: "Développement multimédia 4K UHD",
+            purposeTitle: "Applications",
+            purposeText: "La plateforme peut servir au développement multimédia, aux essais de traitement vidéo et à l'évaluation de solutions matérielles et logicielles embarquées.",
+            referencesTitle: "Références",
+            footer: "Présentation technique"
+        }
+    };
+
+    const language = window.location.pathname.startsWith("/fr/")
+        ? "fr"
+        : "en";
+
+    document.documentElement.lang = language;
+
+    document.title = language === "fr"
+        ? "4Kopen WikiDev | STMicroelectronics"
+        : "4Kopen WikiDev | STMicroelectronics";
+
+    document.getElementById(language + "-link")
+        .classList.add("active");
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+        const key = element.dataset.i18n;
+        if (translations[language][key]) {
+            element.textContent = translations[language][key];
+        }
+    });
+</script>
 
 </body>
 </html>
